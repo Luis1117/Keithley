@@ -1,0 +1,23 @@
+ser.write(':SENS:FUNC:CONC OFF \r'.encode()) # Desligua as funções simultâneas
+ser.write(':SOUR:FUNC VOLT \r'.encode()) # Função fonte de volts
+ser.write(':SENS:FUNC "CURR:DC" \r'.encode()) # Função, medida de corrrente
+ser.write(':SENS:CURR:PROT 0.04 \r'.encode()) # Corrente proteção 40mA
+ser.write(':SOUR:VOLT:START -5 \r'.encode()) # Voltagem começa -5V
+ser.write(':SOUR:VOLT:STOP 5 \r'.encode()) # Voltagem termina 5V
+ser.write(':SOUR:VOLT:STEP 2E-2 \r'.encode()) # paso de voltagem 0.02V
+ser.write(':SOUR:VOLT:MODE SWE \r'.encode()) #  Modo de varredura em volts
+ser.write(':SOUR:SWE:RANG AUTO \r'.encode()) # Variação automática de fonte.
+ser.write(':SOUR:SWE:SPAC LIN \r'.encode()) # Varredura em escada linear
+ser.write(':TRIG:COUN 501 \r'.encode()) # Numero de pontos de varredura.
+ser.write(':SOUR:DEL 0.01 \r'.encode()) # atraso da fonte de 100 ms
+ser.write(':OUTP ON \r'.encode()) # Ativar a saída da fonte
+ser.write(':READ? \r'.encode()) # Ativar varredura, solicitar dados
+
+
+Corrente = ser.readlines()
+print(Corrente)
+
+    
+ser.write(':OUTP OFF \r'.encode()) # Desligar a saida
+
+ser.close()
